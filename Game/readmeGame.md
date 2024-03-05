@@ -1,4 +1,4 @@
-# Dokumentasi Tugas Mata Kuliah Pemrograman Berbasis Mobile
+# Dokumentasi Tugas Pertama
 
 ## Deskripsi
 Dokumentasi ini menjelaskan tentang aplikasi "Jagoan Duel" yang merupakan bagian dari tugas mata kuliah Pemrograman Berbasis Mobile. Aplikasi ini bertujuan untuk mensimulasikan pertarungan antara dua karakter jagoan dengan menggunakan konsep objek dan kelas dalam bahasa Dart.

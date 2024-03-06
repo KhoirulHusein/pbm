@@ -4,6 +4,7 @@ class Jubah {
   late int kesehatan;
 
   Jubah(String nama, int kekuatan, int kesehatan) {
+    // Inisialisasi atribut atributnya
     this.nama = nama;
     this.kekuatan = kekuatan;
     this.kesehatan = kesehatan;

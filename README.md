@@ -9,7 +9,6 @@ Repository ini adalah tempat untuk menyimpan semua materi perkuliahan yang berka
 3. [Struktur Folder](#struktur-folder)
 4. [Cara Menggunakan](#cara-menggunakan)
 5. [Kontribusi](#kontribusi)
-6. [Lisensi](#lisensi)
 
 ## Deskripsi
 

@@ -1,16 +1,47 @@
-# build_layout
+# Login Page Flutter App
 
-A new Flutter project.
+This is a simple login page Flutter application. It provides a basic UI for users to input their username and password for login purposes.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To get started with this application, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+1. **Prerequisites**: Make sure you have Flutter installed on your machine. If not, follow the [Flutter Installation Guide](https://flutter.dev/docs/get-started/install).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. **Clone Repository**: Clone this repository to your local machine using Git.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   ```bash
+   git clone https://github.com/KhoirulHusein/pbm.git
+   ```
+
+3. **Navigate to Project Directory**: Change your current directory to the cloned project directory.
+
+   ```bash
+   cd teory_pbm/teory_03/build_layout
+   ```
+
+4. **Run the App**: Use Flutter CLI to run the application on a connected device or emulator.
+
+   ```bash
+   flutter run
+   ```
+
+## Features
+
+- Simple login UI with fields for username and password.
+- Password field obscures text for security.
+- Login button to trigger login action.
+- Forgot Password button to handle password recovery.
+
+## Technology Used
+
+- Flutter
+- Dart
+
+## Credits
+
+This project was created as part of a mobile-based programming course assignment.
+
+## Showcase
+
+![Login Page](https://github.com/KhoirulHusein/pbm/blob/master/teory_pbm/teory_03/build_layout/images/Screenshot%202024-03-31%20at%2010.40.29%E2%80%AFPM.png)

@@ -1,8 +1,6 @@
-
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, unused_field
 
 import 'package:flutter/material.dart';
-
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
@@ -18,6 +16,12 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String? _selectedRole;
+  String? _email;
+  String? _password;
+  String? _confirmPassword;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,11 @@ class _SignUpFormState extends State<SignUpForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
-            onSaved: (email) {},
+            onChanged: (value) {
+              setState(() {
+                _email = value;
+              });
+            },
             decoration: const InputDecoration(
               hintText: "Your email",
               prefixIcon: Padding(
@@ -41,6 +49,10 @@ class _SignUpFormState extends State<SignUpForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
               }
+              // Email validation using regex
+              if (!_isValidEmail(value)) {
+                return 'Please enter a valid email';
+              }
               return null;
             },
           ),
@@ -48,19 +60,39 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
               textInputAction: TextInputAction.next,
-              obscureText: true,
+              obscureText: _obscurePassword,
               cursorColor: kPrimaryColor,
-              decoration: const InputDecoration(
+              onChanged: (value) {
+                setState(() {
+                  _password = value;
+                });
+              },
+              decoration: InputDecoration(
                 hintText: "Your password",
-                prefixIcon: Padding(
+                prefixIcon: const Padding(
                   padding: EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.lock),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
                 ),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your password';
                 }
+                // Password validation using regex
+                // if (!_isValidPassword(value)) {
+                //   return 'Password needs 8 characters with at least one uppercase letter, one lowercase letter, and one number.';
+                // }
                 return null;
               },
             ),
@@ -69,22 +101,67 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.symmetric(vertical: defaultPadding / 6),
             child: TextFormField(
               textInputAction: TextInputAction.done,
-              obscureText: true,
+              obscureText: _obscureConfirmPassword,
               cursorColor: kPrimaryColor,
-              decoration: const InputDecoration(
+              onChanged: (value) {
+                setState(() {
+                  _confirmPassword = value;
+                });
+              },
+              decoration: InputDecoration(
                 hintText: "Confirm password",
-                prefixIcon: Padding(
+                prefixIcon: const Padding(
                   padding: EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.lock),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscureConfirmPassword
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureConfirmPassword = !_obscureConfirmPassword;
+                    });
+                  },
                 ),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please confirm your password';
                 }
+                if (value != _password) {
+                  return 'Passwords do not match';
+                } if (!_isValidPassword(value)) {
+                  return 'Password needs 8 characters with at least one uppercase letter, one lowercase letter, and one number.';
+                }
                 return null;
               },
             ),
+          ),
+          const SizedBox(height: defaultPadding),
+          DropdownButtonFormField<String>(
+            value: _selectedRole,
+            hint: const Text("Select Role"),
+            items: ["Parent", "Caregiver"]
+                .map((role) => DropdownMenuItem<String>(
+                      value: role,
+                      child: Text(role),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _selectedRole = value;
+              });
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a role';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: defaultPadding),
           ElevatedButton(
@@ -95,7 +172,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text("Registration Successful"),
-                      content: const Text("You have successfully registered!"),
+                      content:
+                          const Text("You have successfully registered!"),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {
@@ -136,5 +214,16 @@ class _SignUpFormState extends State<SignUpForm> {
         ],
       ),
     );
+  }
+
+  bool _isValidEmail(String email) {
+    // Email validation using regex
+    return RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+        .hasMatch(email);
+  }
+
+  bool _isValidPassword(String password) {
+    // Password validation using regex
+    return RegExp(r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$").hasMatch(password);
   }
 }

@@ -13,6 +13,7 @@ class SignUpScreen extends StatelessWidget {
     return const Background(
       child: SingleChildScrollView(
         child: Responsive(
+          
           mobile: MobileSignupScreen(),
           desktop: Row(
             children: [

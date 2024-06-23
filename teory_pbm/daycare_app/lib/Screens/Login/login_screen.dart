@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:daycare_app/constants.dart';
 import 'package:daycare_app/responsive.dart';
-
 import '../../components/background.dart';
-import 'components/login_role.dart';
-import 'components/style/login_screen_top_image.dart';
+import 'components/login_top_image.dart';
+import 'components/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -20,13 +20,15 @@ class LoginScreen extends StatelessWidget {
                 child: LoginScreenTopImage(),
               ),
               Expanded(
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: 450,
-                      child: LoginRole(),
+                      child: LoginForm(),
                     ),
+                    SizedBox(height: defaultPadding / 2),
+                    // Add other components as needed
                   ],
                 ),
               ),
@@ -54,11 +56,12 @@ class MobileLoginScreen extends StatelessWidget {
             Spacer(),
             Expanded(
               flex: 8,
-              child: LoginRole(),
+              child: LoginForm(),
             ),
             Spacer(),
           ],
         ),
+        // Add other components as needed
       ],
     );
   }

@@ -103,8 +103,8 @@
 
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:daycare_app/Screens/Login/components/login_caregiver_form.dart';
-import 'package:daycare_app/Screens/Login/components/login_parent_form.dart';
+import 'package:daycare_app/trash/login_caregiver_form.dart';
+import 'package:daycare_app/trash/login_parent_form.dart';
 import 'package:daycare_app/constants.dart';
 import 'package:flutter/material.dart';
 

@@ -1,21 +1,21 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:daycare_app/Menu/components/InputData/input_activity_screen.dart';
+import 'package:daycare_app/Menu/components/InputData/input_child_screen.dart';
+import 'package:daycare_app/Menu/components/ScreensData/display_child_activity_screen.dart';
+import 'package:daycare_app/Menu/components/ScreensData/display_child_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'components/Screens/display_child_activity_screen.dart';
-import 'components/InputData/input_child_data_screen.dart';
-import 'components/Screens/display_child_data_screen.dart';
 import 'package:daycare_app/models/form_data.dart';
 
-class MainMenuScreen extends StatefulWidget {
-  const MainMenuScreen({super.key});
+class CaregiverScreen extends StatefulWidget {
+  const CaregiverScreen({super.key});
 
   @override
-  _MainMenuScreenState createState() => _MainMenuScreenState();
+  _CaregiverScreenState createState() => _CaregiverScreenState();
 }
 
-class _MainMenuScreenState extends State<MainMenuScreen> {
+class _CaregiverScreenState extends State<CaregiverScreen> {
   bool _isChildDataSubmitted = false;
   FormData? _childData;
   FormData? _activityData;
@@ -61,12 +61,29 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main Menu'),
+        title: const Text('Caregiver Menu'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ElevatedButton(
+              onPressed: () async {
+                final formData = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const InputChildDataScreen()),
+                );
+                if (formData != null) {
+                  setState(() {
+                    _isChildDataSubmitted = true;
+                    _childData = formData;
+                  });
+                  await _saveChildDataLocally(formData);
+                }
+              },
+              child: const Text('Input Data (Anak)'),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 final result = await Navigator.push(
@@ -83,21 +100,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                final formData = await Navigator.push(
+              onPressed: () {
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const InputChildDataScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => ChildActivityScreen(
+                      childData: _childData,
+                      activityData: _activityData,
+                    ),
+                  ),
                 );
-                if (formData != null) {
-                  setState(() {
-                    _isChildDataSubmitted = true;
-                    _childData = formData;
-                  });
-                  // Simpan data anak ke SharedPreferences
-                  await _saveChildDataLocally(formData);
-                }
               },
-              child: const Text('Input Data (Anak)'),
+              child: const Text('Kegiatan Anak (Ortu)'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -125,21 +139,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 }
               },
               child: const Text('Lihat Data Anak'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChildActivityScreen(
-                      childData: _childData,
-                      activityData: _activityData,
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Kegiatan Anak (Ortu)'),
             ),
           ],
         ),

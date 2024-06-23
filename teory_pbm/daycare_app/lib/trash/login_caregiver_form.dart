@@ -6,8 +6,8 @@
 // import 'package:daycare_app/constants.dart';
 // import 'package:flutter/material.dart';
 
-// class LoginParent extends StatefulWidget {
-//   const LoginParent({
+// class LoginCaregiver extends StatefulWidget {
+//   const LoginCaregiver({
 //     super.key,
 //   });
 
@@ -15,7 +15,7 @@
 //   _LoginFormState createState() => _LoginFormState();
 // }
 
-// class _LoginFormState extends State<LoginParent> {
+// class _LoginFormState extends State<LoginCaregiver> {
 //   final _formKey = GlobalKey<FormState>();
 
 //   @override
@@ -78,7 +78,7 @@
 //               }
 //             },
 //             child: Text(
-//               "Parent Login".toUpperCase(),
+//               "Caregiver Login".toUpperCase(),
 //             ),
 //           ),
 //           const SizedBox(height: defaultPadding),
@@ -100,28 +100,28 @@
 //   }
 // }
 
-import 'package:daycare_app/Menu/components/Screens/parent_screen.dart';
-import 'package:daycare_app/Screens/Login/components/style/login_screen_top_image.dart';
+import 'package:daycare_app/Menu/menu_caregiver_screen.dart';
+import 'package:daycare_app/trash/style/login_screen_top_image.dart';
 import 'package:daycare_app/Screens/Signup/signup_screen.dart';
 import 'package:daycare_app/components/already_have_an_account_acheck.dart';
 import 'package:daycare_app/constants.dart';
 import 'package:flutter/material.dart';
 
-class LoginParent extends StatefulWidget {
-  const LoginParent({super.key});
+class LoginCaregiver extends StatefulWidget {
+  const LoginCaregiver({super.key});
 
   @override
-  _LoginParentState createState() => _LoginParentState();
+  _LoginCaregiverState createState() => _LoginCaregiverState();
 }
 
-class _LoginParentState extends State<LoginParent> {
+class _LoginCaregiverState extends State<LoginCaregiver> {
   final _formKey = GlobalKey<FormState>();
 
   void _navigateToMainMenu(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const ParentScreen()),
+        MaterialPageRoute(builder: (context) => const CaregiverScreen()),
       );
     }
   }
@@ -137,7 +137,7 @@ class _LoginParentState extends State<LoginParent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login as Parent"),
+        title: Text("Login as Caregiver"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(defaultPadding),
@@ -190,7 +190,7 @@ class _LoginParentState extends State<LoginParent> {
                   ),
                   ElevatedButton(
                     onPressed: () => _navigateToMainMenu(context),
-                    child: Text("Parent Login".toUpperCase()),
+                    child: Text("Caregiver Login".toUpperCase()),
                   ),
                   const SizedBox(height: defaultPadding),
                   AlreadyHaveAnAccountCheck(press: () => _navigateToSignUp(context)),

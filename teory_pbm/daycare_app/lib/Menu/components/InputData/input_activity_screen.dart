@@ -21,7 +21,7 @@ class _InputActivityScreenState extends State<InputActivityScreen> {
     meals: [Meal(type: MealType.breakfast, food: '', quantity: MealQuantity.none, comments: '')],
     toilets: [Toilet(time: '', type: ToiletType.diaper, condition: ToiletCondition.wet, notes: '')],
     rests: [Rest(start: '', end: '')],
-    bottles: [Bottle(time: '', ml: '', type: BottleType.breast)],
+    bottles: [Bottle(time: '', ml: '', type: BottleType.breast, quantity: '')],
     shower: '',
     vitamin: '',
     notesForParents: '',
@@ -181,95 +181,11 @@ class _InputActivityScreenState extends State<InputActivityScreen> {
                     _formData.toilets.add(Toilet(time: '', type: ToiletType.diaper, condition: ToiletCondition.wet, notes: ''));
                   });
                 },
-                child: const Text('Add Toilet Record'),
-              ),
-              const SizedBox(height: 16.0),
-              // Rests section
-              const Text('Rests', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8.0),
-              ..._formData.rests.map((rest) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'Start Rest'),
-                      onSaved: (value) => rest.start = value!,
-                    ),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'End Rest'),
-                      onSaved: (value) => rest.end = value!,
-                    ),
-                  ],
-                ),
-              )),
-              const SizedBox(height: 8.0),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _formData.rests.add(Rest(start: '', end: ''));
-                  });
-                },
-                child: const Text('Add Rest Record'),
-              ),
-              const SizedBox(height: 16.0),
-              // Bottles section
-              const Text('Bottles', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8.0),
-              ..._formData.bottles.map((bottle) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(labelText: 'Time'),
-                        onSaved: (value) => bottle.time = value!,
-                      ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(labelText: 'ML'),
-                        keyboardType: TextInputType.number,
-                        onSaved: (value) => bottle.ml = value!,
-                      ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: DropdownButtonFormField<BottleType>(
-                        value: bottle.type,
-                        decoration: const InputDecoration(labelText: 'Type'),
-                        items: BottleType.values.map((BottleType type) {
-                          return DropdownMenuItem<BottleType>(
-                            value: type,
-                            child: Text(type.toString().split('.').last),
-                          );
-                        }).toList(),
-                        onChanged: (BottleType? newValue) {
-                          setState(() {
-                            bottle.type = newValue!;
-                          });
-                        },
-                        onSaved: (value) => bottle.type = value!,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-              const SizedBox(height: 8.0),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _formData.bottles.add(Bottle(time: '', ml: '', type: BottleType.breast));
-                  });
-                },
-                child: const Text('Add Bottle Record'),
+                child: const Text('Add Toilet'),
               ),
               const SizedBox(height: 16.0),
               const Text('Others', style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 8.0),
-              // Shower
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Shower Time'),
                 onSaved: (value) => _formData.shower = value!,
@@ -293,6 +209,7 @@ class _InputActivityScreenState extends State<InputActivityScreen> {
                 onSaved: (value) => _formData.itemsNeeded = value!.split(',').map((item) => item.trim()).toList(),
               ),
               const SizedBox(height: 16.0),
+              // Save button
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

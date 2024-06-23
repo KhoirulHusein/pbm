@@ -45,6 +45,10 @@ class Meal {
     required this.quantity,
     required this.comments,
   });
+
+  static fromJson(Map<String, dynamic> map) {}
+
+  toJson() {}
 }
 
 enum ToiletType { diaper, potty }
@@ -56,6 +60,8 @@ class Toilet {
   ToiletCondition condition;
   String notes;
 
+  var comments;
+
   Toilet({
     required this.time,
     required this.type,
@@ -63,6 +69,29 @@ class Toilet {
     required this.notes,
   });
 }
+
+// class Toilet {
+//   String time;
+//   ToiletType type;
+//   ToiletCondition condition;
+//   String notes;
+
+//   Toilet({
+//     required this.time,
+//     required this.type,
+//     required this.condition,
+//     required this.notes,
+//   });
+
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'time': time,
+//       'type': type.toString().split('.').last,
+//       'condition': condition.toString().split('.').last,
+//       'notes': notes,
+//     };
+//   }
+// }
 
 class Rest {
   String start;
@@ -84,8 +113,9 @@ class Bottle {
   Bottle({
     required this.time,
     required this.ml,
-    required this.type,
+    required this.type, required String quantity,
   });
-}
 
+  set quantity(String quantity) {}
+}
 

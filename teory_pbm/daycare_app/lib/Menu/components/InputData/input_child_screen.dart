@@ -48,7 +48,7 @@ class _InputChildDataScreenState extends State<InputChildDataScreen> {
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Date'),
-                readOnly: true,
+                readOnly: false,
                 onTap: () async {
                   final pickedDate = await showDatePicker(
                     context: context,
